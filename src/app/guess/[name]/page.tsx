@@ -21,29 +21,32 @@ interface Params {
 
 export default async function page ({params}:Params){
     const name = (await params).name;
-    const ageData = getAge( name);
+    const ageData = getAge(name);
     const genderData = getGender(name);
     const nationData = getNation(name);
     // console.log((await ageData).toString())
 
     const [age,gender,nation] = await Promise.all([ageData,genderData,nationData]);
 
-    console.log(age);
-    console.log(gender)
-    console.log(nation)
+    // console.log(age);
+    // console.log(gender)
+    // console.log(nation)
     return(
-        <div>
-            <div>
-                <h1>Hello {name}</h1>
-                <div>Personal Info</div>
-                <div>Total people of this name : {age?.count}</div>
-            <div>
-                Your predicted age: { age?.age}
-            </div>
-            <div>Your pedictes gender: {gender?.gender}</div>
-            {/* <div>Your predicted nation: {nation?.country[0]?.country_id}</div> */}
-            </div>
-            
+        <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-3 p-4">
+      <div className="p-8">
+        <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
+          Personal Info
         </div>
+        <div className="block mt-1 text-lg leading-tight font-medium text-black">
+          Age: {age?.age}
+        </div>
+        <div className="block mt-1 text-lg leading-tight font-medium text-black">
+          Gender: {gender?.gender}
+        </div>
+        <div className="block mt-1 text-lg leading-tight font-medium text-black">
+          Nationality: {nation?.country?.country_id}
+        </div>
+      </div>
+    </div>
     )
 }
